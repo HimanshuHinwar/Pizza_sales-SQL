@@ -1,9 +1,11 @@
 # Pizza_sales-SQL 
 --Retrieve the total number of orders placed.
 select count(*) from orders as total_order
+
 --Calculate the total revenue generated from pizza sales.
 select round(sum(price*quantity),2) as total_revenue from pizzas p
 join details d on p.pizza_id = d.pizza_id
+
 --Identify the highest-priced pizza.
 select top 1 name , price from pizza_types pt
 join pizzas p on pt.pizza_type_id = p.pizza_type_id
@@ -74,6 +76,7 @@ join orders o on d.order_id = o.order_id
 group by date)
 select date , sum(revenue) over (order by revenue) as cummulative from cum
 --Determine the top 3 most ordered pizza types based on revenue for each pizza category.
+
 
  with pizz as  (select category, name  ,sum(price*quantity)as revenue from pizzas p
 join pizza_types pt on pt.pizza_type_id = p.pizza_type_id
